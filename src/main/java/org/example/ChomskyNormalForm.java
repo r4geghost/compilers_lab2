@@ -10,41 +10,31 @@ public class ChomskyNormalForm {
     private static int p; //np-> number of productions
     private static int np;
     private String input;
-    private String string;
     private int lineCount;
     private String epselonFound = "";
 
     static private Map<String, List<String>> mapVariableProduction = new LinkedHashMap<>();
 
     public static void main(String args[]) {
-//        String final_string;
-//
-//        Scanner sc = new Scanner(System.in);
-//        System.out.print("Enter number of lines:");
-//
-//        int line_count = sc.nextInt();
-//        String[] str = new String[line_count];
-//
-//        for (int i = 0; i < line_count; i++) {
-//            System.out.print("Enter line " + (i + 1) + " :");
-//            str[i] = sc.next();
-//        }
-//
-//        final_string = str[0] + "\n";
-//
-//        for (int i = 1; i < line_count - 1; i++)
-//            final_string += str[i] + "\n";
-//
-//        final_string += str[line_count - 1];
         int line_count = 3;
-        String final_string = "S->ASA|aB\nA->B|S\nB->b|e";
+        String final_string = """
+                S->ASA|aB
+                A->B|S
+                B->b|e""";
+
+//        String final_string = """
+//                S->ASB
+//                A->aAS|a|e
+//                B->SbS|A|bb""";
+
+//        String final_string = """
+//                S->abb|AaB
+//                A->aA|bA|e
+//                B->aa|bb""";
+
         ChomskyNormalForm chomskyNormalForm = new ChomskyNormalForm();
         chomskyNormalForm.setInputandLineCount(final_string, line_count);
         chomskyNormalForm.convertCFGtoCNF();
-    }
-
-    public void setString(String string) {
-        this.string = string;
     }
 
     public void setInputandLineCount(String input, int lineCount) {
@@ -69,7 +59,7 @@ public class ChomskyNormalForm {
     }
 
     private void eliminateSingleVariable() {
-        System.out.println("Remove Single Variable in Every Production ... ");
+        System.out.println("Remove single variable in every production ... ");
         for (int i = 0; i < lineCount; i++) {
             removeSingleVariable();
         }
@@ -85,7 +75,7 @@ public class ChomskyNormalForm {
     }
 
     private void eliminateEpselon() {
-        System.out.println("\nRemove Epselon....");
+        System.out.println("\nRemove epsilon....");
         for (int i = 0; i < lineCount; i++) {
             removeEpselon();
         }
@@ -423,11 +413,5 @@ public class ChomskyNormalForm {
                 }
             }
         }
-    }
-
-    public String concat(String a, String b) {
-        String r = a;
-        r = r.concat(b);
-        return r;
     }
 }
